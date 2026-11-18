@@ -30,6 +30,7 @@ model/drawer/
 # Old placement maps and the deploy config (keeps configs/placement_map.yaml)
 configs/placement_map_*.yaml
 configs/deploy.yaml
+!configs/placement_map_v6.yaml
 
 # scripts/: ignore everything except the core scripts
 scripts/*
@@ -39,3 +40,9 @@ scripts/*
 !scripts/check_reachability.py
 !scripts/scripted_demo.py
 !Running_scripts.md
+
+runs/*
+!runs/sac_audit_fix_v7/
+runs/sac_audit_fix_v7/*
+!runs/sac_audit_fix_v7/best/
+!runs/sac_audit_fix_v7/configs/
