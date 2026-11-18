@@ -6,7 +6,13 @@ __pycache__/
 .ruff_cache/
 
 # Training runs, generated output, logs
-runs/
+runs/*
+!runs/sac_audit_fix_v7/
+runs/sac_audit_fix_v7/*
+!runs/sac_audit_fix_v7/best/
+!runs/sac_audit_fix_v7/configs/
+!runs/README.md
+
 generated/
 calibration/
 printables/
@@ -40,9 +46,4 @@ scripts/*
 !scripts/check_reachability.py
 !scripts/scripted_demo.py
 !Running_scripts.md
-
-runs/*
-!runs/sac_audit_fix_v7/
-runs/sac_audit_fix_v7/*
-!runs/sac_audit_fix_v7/best/
-!runs/sac_audit_fix_v7/configs/
+!scripts/README.md
