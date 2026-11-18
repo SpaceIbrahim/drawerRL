@@ -1,0 +1,41 @@
+# Python environment and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Training runs, generated output, logs
+runs/
+generated/
+calibration/
+printables/
+recordings/
+logs/
+*.log
+
+# Development docs, tests and tools that aren't part of the core repo
+docs/
+tests/
+sim2real/
+drawer_deploy/*
+!__innit__.py
+drawer_vision/*
+!__init__.py
+model/drawer/
+
+# PDFs (proposal and measurement photos)
+*.pdf
+
+# Old placement maps and the deploy config (keeps configs/placement_map.yaml)
+configs/placement_map_*.yaml
+configs/deploy.yaml
+
+# scripts/: ignore everything except the core scripts
+scripts/*
+!scripts/train.py
+!scripts/evaluate.py
+!scripts/build_scene.py
+!scripts/check_reachability.py
+!scripts/scripted_demo.py
+!Running_scripts.md

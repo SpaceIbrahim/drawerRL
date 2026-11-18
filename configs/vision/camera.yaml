@@ -1,0 +1,40 @@
+# =============================================================================
+# Camera source.  Choose with `source:`; each source has its own block.
+# =============================================================================
+source: zed                 # zed | uvc | replay | mujoco
+
+zed:                        # needs the Stereolabs ZED SDK + its python package (pyzed)
+  resolution: HD1080        # HD2K | HD1080 | HD720 | VGA  (HD1080: a 7 cm tag 1 m away is ~54 px wide face-on)
+  fps: 30
+  serial_number: null       # null -> first ZED found
+  depth_mode: NEURAL        # NONE | PERFORMANCE | QUALITY | ULTRA | NEURAL   (NONE = no depth)
+  depth_min_m: 0.3
+  depth_max_m: 3.0
+  svo_file: null            # play back a recorded .svo instead of the live camera
+  # ZED images are already rectified, so the SDK's intrinsics have zero distortion.
+
+uvc:                        # the ZED 2 also works as a plain USB webcam (no SDK, no depth)
+  device: 0
+  width: 2560               # side-by-side stereo frame width (HD720 -> 2 x 1280)
+  height: 720
+  fps: 30
+  side_by_side: true        # take the LEFT half of the frame
+  # Intrinsics for the (unrectified) left image.  Either a file produced by
+  # scripts/vision/calibrate_intrinsics.py or the ZED factory file SN<serial>.conf
+  intrinsics_file: calibration/intrinsics_uvc.yaml
+  zed_conf_file: null       # e.g. calibration/SN12345678.conf  (overrides intrinsics_file)
+  zed_conf_resolution: HD   # 2K | FHD | HD | VGA  (section of the .conf to read)
+
+replay:                     # folder of images (+ optional depth .npy) recorded with scripts/vision/record.py
+  path: recordings/latest
+  loop: true
+  fps: 10
+
+mujoco:                     # virtual camera inside the simulation (for testing without hardware)
+  width: 1920              # match the real camera resolution so tag sizes in pixels are realistic
+  height: 1080
+  fovy_deg: 70              # ZED 2 vertical FOV is about 70 deg
+  # camera pose in the ROBOT BASE frame (m): where it is and what it looks at
+  pos: [-0.05, -0.50, 0.80]
+  lookat: [0.45, 0.0, 0.30]
+  noise_std: 2.0            # pixel intensity noise (0-255 scale)

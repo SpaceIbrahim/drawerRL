@@ -1,0 +1,35 @@
+# =============================================================================
+# Calibration procedures.
+# =============================================================================
+charuco:                       # board for intrinsic calibration (print with generate_markers.py)
+  squares_x: 7
+  squares_y: 5
+  square_size: 0.035           # m -- measure the printout
+  marker_size: 0.026
+  dictionary: DICT_5X5_100     # different dict from the scene tags so they never clash
+  min_corners: 12
+  min_views: 15
+
+extrinsics:
+  # Which method calibrate_extrinsics.py uses by default:
+  #   base_markers : tags at measured spots in the robot base frame (quick, ~5 mm)
+  #   hand_eye     : tag on the gripper, robot moved to many poses (best, ~1-3 mm)
+  #   touch_points : jog the TCP onto tag centres/corners (no extra hardware)
+  method: hand_eye
+  frames_per_sample: 10        # frames averaged per pose / sample
+  hand_eye:
+    min_samples: 12
+    solver: AUTO               # AUTO (try several, keep the best) | TSAI | PARK | HORAUD | ANDREFF | DANIILIDIS | SHAH | LI
+    max_residual_mm: 5.0
+
+robot:                         # used to read the TCP pose during calibration
+  interface: kortex            # kortex | manual
+  ip: 192.168.1.10
+  port: 10000
+  username_env: KINOVA_USERNAME  # credentials are read from these env vars
+  password_env: KINOVA_PASSWORD
+  # Kortex reports the pose of its configured tool frame.  This transform maps
+  # that frame to the TCP used by the RL policy (robot.yaml -> tcp).
+  tool_to_tcp:
+    position: [0.0, 0.0, 0.0]
+    rpy_deg: [0.0, 0.0, 0.0]

@@ -1,0 +1,62 @@
+# =============================================================================
+# Training configuration (Stable-Baselines3).
+# =============================================================================
+
+algorithm: SAC              # SAC (default, sample efficient) | PPO | TD3
+total_timesteps: 1_000_000
+n_envs: 5                   # parallel simulation processes (8 crashed the laptop; 7 filled RAM + swap;
+                            #   audit: keep <= 5 on this laptop)
+torch_threads: 2            # CPU threads PyTorch may use in the learner process
+seed: 0
+device: auto                # auto | cuda | cpu
+
+# Config files that define the environment (paths relative to project root)
+env_configs:
+  robot: configs/robot.yaml
+  drawer: configs/drawer.yaml
+  scene: configs/scene.yaml
+  task: configs/task.yaml
+
+normalize_obs: true         # VecNormalize running mean/std on observations
+eval_every: 20_000          # timesteps between evaluations
+eval_episodes: 10
+checkpoint_every: 100_000
+video_on_eval: false
+
+SAC:
+  learning_rate: 3.0e-4
+  buffer_size: 300_000      # audit: 300k is plenty (policies converge by ~150k steps); was 1M, then 500k
+  learning_starts: 10_000
+  batch_size: 512
+  tau: 0.005
+  gamma: 0.99               # v8: was 0.98 (look-ahead ~2.5 s).  The real-arm-matched task takes ~2x longer
+                            #   (2.1 s gripper, joint acceleration limits), so the horizon doubles to ~5 s
+  train_freq: 1
+  gradient_steps: 3         # per env.step() call (i.e. per n_envs transitions); was 4
+  ent_coef: auto
+  policy_kwargs:
+    net_arch: [256, 256, 256]
+
+PPO:
+  learning_rate: 3.0e-4
+  n_steps: 1024
+  batch_size: 2048
+  n_epochs: 10
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.0
+  policy_kwargs:
+    net_arch: {pi: [256, 256], vf: [256, 256]}
+
+TD3:
+  learning_rate: 3.0e-4
+  buffer_size: 1_000_000
+  learning_starts: 10_000
+  batch_size: 512
+  gamma: 0.98
+  train_freq: 1
+  gradient_steps: 4
+  action_noise_std: 0.2
+  policy_kwargs:
+    net_arch: [256, 256, 256]

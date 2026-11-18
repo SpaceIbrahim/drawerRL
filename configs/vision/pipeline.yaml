@@ -1,0 +1,43 @@
+# =============================================================================
+# Run-time vision pipeline settings.
+# =============================================================================
+calibration_dir: calibration
+extrinsics_file: calibration/extrinsics.yaml     # T_base_camera
+scene_state_file: calibration/scene_state.yaml   # closed-drawer reference etc.
+
+# fixed            : use extrinsics_file only
+# live_base_marker : if a base marker is visible, re-estimate T_base_camera every
+#                    frame (robust to the camera stand being bumped), else fall back
+extrinsics_mode: fixed
+
+pose:
+  method: IPPE_SQUARE          # planar square PnP; returns both ambiguous solutions
+  ambiguity_ratio: 0.6         # reject if err_best / err_second > this and no prior to disambiguate
+  use_depth_refinement: true   # ZED only: correct tag distance with the depth map
+  depth_patch_shrink: 0.7      # use the inner 70% of the tag area for depth
+
+quality:                       # detections failing these are dropped (with a reason)
+  max_reprojection_px: 2.0
+  min_side_px: 25              # tag must be at least this many pixels wide
+  max_view_angle_deg: 70       # angle between the tag normal and the camera ray
+  max_distance_m: 3.0
+
+filter:
+  type: ema                    # none | ema
+  alpha_pos: 0.4               # smoothing for positions (1 = no smoothing)
+  alpha_axis: 0.2
+  max_jump_m: 0.05             # bigger jumps are treated as outliers ...
+  jump_confirm_frames: 3       # ... unless they persist this many frames
+  stale_after_s: 0.5           # state marked invalid if no good detection this long
+
+opening:
+  # cabinet_tag : opening = drawer tag displacement relative to the cabinet tag
+  # reference   : relative to the closed pose recorded by setup_scene.py
+  # auto        : cabinet_tag if visible, else reference
+  method: auto
+  clip: [-0.01, 0.35]
+
+display:
+  axis_length_m: 0.05
+  show_base_frame: true
+  show_quality_text: true
