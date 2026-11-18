@@ -1,0 +1,56 @@
+mjcf_path: model/kinova_gen3_lite/gen3_lite.xml
+base_body: base_link
+arm_joints:
+- joint_1
+- joint_2
+- joint_3
+- joint_4
+- joint_5
+- joint_6
+arm_actuators:
+- a_joint_1
+- a_joint_2
+- a_joint_3
+- a_joint_4
+- a_joint_5
+- a_joint_6
+gripper:
+  actuator: a_gripper
+  joint: right_finger_bottom_joint
+  open_ctrl: 0.96
+  closed_ctrl: -0.09
+  left_finger_bodies:
+  - left_finger_prox_link
+  - left_finger_dist_link
+  right_finger_bodies:
+  - right_finger_prox_link
+  - right_finger_dist_link
+tcp:
+  site: ee_site
+  offset:
+  - 0.0
+  - 0.0
+  - 0.008
+  approach_axis: z
+  finger_axis: x
+start_qpos: null
+start_tcp_pos:
+- 0.35
+- 0.0
+- 0.42
+start_gripper: open
+start_qpos_noise: 0.02
+ik_preferred_qpos:
+- 0.0
+- -0.28
+- 1.31
+- 0.0
+- -1.05
+- 0.0
+joint_limits: null
+actuator_overrides:
+  a_gripper:
+    kv: 10
+    forcerange:
+    - -3
+    - 3

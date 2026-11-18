@@ -1,0 +1,62 @@
+algorithm: SAC
+total_timesteps: 300000
+n_envs: 5
+torch_threads: 2
+seed: 0
+device: auto
+env_configs:
+  robot: configs/robot.yaml
+  drawer: configs/drawer.yaml
+  scene: configs/scene.yaml
+  task: configs/task.yaml
+normalize_obs: true
+eval_every: 20000
+eval_episodes: 10
+checkpoint_every: 100000
+video_on_eval: false
+SAC:
+  learning_rate: 0.0003
+  buffer_size: 1000000
+  learning_starts: 10000
+  batch_size: 512
+  tau: 0.005
+  gamma: 0.98
+  train_freq: 1
+  gradient_steps: 3
+  ent_coef: auto
+  policy_kwargs:
+    net_arch:
+    - 256
+    - 256
+    - 256
+PPO:
+  learning_rate: 0.0003
+  n_steps: 1024
+  batch_size: 2048
+  n_epochs: 10
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.0
+  policy_kwargs:
+    net_arch:
+      pi:
+      - 256
+      - 256
+      vf:
+      - 256
+      - 256
+TD3:
+  learning_rate: 0.0003
+  buffer_size: 1000000
+  learning_starts: 10000
+  batch_size: 512
+  gamma: 0.98
+  train_freq: 1
+  gradient_steps: 4
+  action_noise_std: 0.2
+  policy_kwargs:
+    net_arch:
+    - 256
+    - 256
+    - 256

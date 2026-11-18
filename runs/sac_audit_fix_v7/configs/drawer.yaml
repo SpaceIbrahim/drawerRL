@@ -1,0 +1,71 @@
+cabinet:
+  width: 0.345
+  depth: 0.395
+  height: 0.49
+  side_thickness: 0.016
+  bottom_thickness: 0.016
+  back_thickness: 0.005
+  top_thickness: 0.0175
+  top_overhang: 0.0175
+  mass: 15.0
+  rgba:
+  - 0.2
+  - 0.14
+  - 0.11
+  - 1.0
+top_drawer:
+  front_height: 0.145
+  front_width: 0.341
+  front_thickness: 0.016
+  top_gap: 0.035
+  box_depth: 0.34
+  box_height: 0.11
+  box_wall: 0.012
+  box_side_clearance: 0.004
+  mass: 1.5
+  rgba:
+  - 0.24
+  - 0.17
+  - 0.13
+  - 1.0
+  slide:
+    max_travel: 0.3
+    damping: 8.0
+    frictionloss: 3.0
+    armature: 0.0
+    stiffness: 0.0
+    stiffness_ref: 0.0
+handle:
+  length: 0.105
+  standoff: 0.03
+  clearance: 0.019
+  post_diameter: 0.011
+  bar_diameter: null
+  offset_y: 0.0
+  offset_z: 0.0
+  friction:
+  - 1.0
+  - 0.005
+  - 0.0001
+  rgba:
+  - 0.05
+  - 0.05
+  - 0.05
+  - 1.0
+bottom_drawer:
+  enabled: true
+  front_height: 0.19
+  gap_below_top_drawer: 0.012
+  has_handle: false
+physics:
+  geom_friction:
+  - 0.8
+  - 0.005
+  - 0.0001
+  solref:
+  - 0.005
+  - 1.0
+  solimp:
+  - 0.9
+  - 0.95
+  - 0.001

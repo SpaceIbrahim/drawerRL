@@ -1,0 +1,74 @@
+table:
+  height: 0.75
+  size:
+  - 1.4
+  - 1.0
+  thickness: 0.04
+  robot_offset_on_table:
+  - -0.5
+  - 0.0
+  friction:
+  - 0.8
+  - 0.005
+  - 0.0001
+  rgba:
+  - 0.55
+  - 0.45
+  - 0.35
+  - 1.0
+drawer_placement:
+  x: 0.6
+  y: 0.0
+  z: 0.0
+  yaw_deg: 0.0
+physics:
+  timestep: 0.002
+  integrator: implicitfast
+  cone: elliptic
+  impratio: 50
+  noslip_iterations: 0
+  tolerance: 1.0e-08
+  iterations: 50
+  gravity:
+  - 0
+  - 0
+  - -9.81
+cameras:
+  overview:
+    pos:
+    - -0.45
+    - -1.0
+    - 0.75
+    lookat:
+    - 0.4
+    - 0.0
+    - 0.25
+  side_view:
+    pos:
+    - 0.4
+    - -1.3
+    - 0.35
+    lookat:
+    - 0.4
+    - 0.0
+    - 0.3
+  drawer_closeup:
+    pos:
+    - 0.05
+    - -0.3
+    - 0.45
+    lookat:
+    - 0.55
+    - 0.0
+    - 0.35
+render:
+  width: 640
+  height: 480
+  camera:
+    lookat:
+    - 0.35
+    - 0.0
+    - 0.3
+    distance: 1.5
+    azimuth: -50
+    elevation: -22
